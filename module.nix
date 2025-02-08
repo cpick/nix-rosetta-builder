@@ -189,7 +189,7 @@
         hostName = sshHost;
         maxJobs = cores;
         protocol = "ssh-ng";
-        supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
+        supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
         systems = [ linuxSystem "x86_64-linux" ];
       }];
 
