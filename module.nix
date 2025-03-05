@@ -191,7 +191,6 @@ in
           Hostname localhost
           HostKeyAlias "${sshHostKeyAlias}"
           Port "${toString cfg.port}"
-          StrictHostKeyChecking yes
           User "${linuxUser}"
           IdentityFile "${workingDirPath}/${sshUserPrivateKeyFileName}"
       '';
