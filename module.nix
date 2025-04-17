@@ -400,6 +400,12 @@ in
           printf >&2 'setting up working directory %s...\n' ${workingDirPathSh}
           mkdir -p ${workingDirPathSh}
           chown ${userSh}:${groupSh} ${workingDirPathSh}
+
+          # VM startup will fail if /etc/hosts does not exist.
+          if [ ! -f /etc/hosts ]; then
+            touch /etc/hosts
+            chmod 0644 /etc/hosts
+          fi
         '';
     };
 }
