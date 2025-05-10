@@ -45,6 +45,16 @@ in
       '';
     };
 
+    speedFactor = mkOption {
+      type = types.int;
+      default = 1;
+      description = ''
+        The relative speed factor of the builder.
+        This sets the speed factor in the `nix.buildMachines` specification,
+        which affects how Nix distributes build tasks to this machine.
+      '';
+    };
+
     cores = mkOption {
       type = types.int;
       default = 8;
@@ -376,6 +386,7 @@ in
         nix = {
           buildMachines = [
             {
+              inherit (cfg) speedFactor;
               hostName = sshHost;
               maxJobs = cfg.cores;
               protocol = "ssh-ng";
