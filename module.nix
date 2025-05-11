@@ -129,6 +129,18 @@ in
         The SSH port used by the VM.
       '';
     };
+
+    sshProtocol = mkOption {
+      type = types.enum [
+        "ssh"
+        "ssh-ng"
+      ];
+      default = "ssh-ng";
+      description = ''
+        The SSH protocol to use for remote builds.
+        Options are "ssh" (legacy) or "ssh-ng" (newer protocol with better performance).
+      '';
+    };
   };
 
   config =
@@ -389,7 +401,7 @@ in
               inherit (cfg) speedFactor;
               hostName = sshHost;
               maxJobs = cfg.cores;
-              protocol = "ssh-ng";
+              protocol = cfg.sshProtocol;
               supportedFeatures = [
                 "benchmark"
                 "big-parallel"
