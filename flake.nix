@@ -3,18 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
-    {
-      self,
-      nixos-generators,
-      nixpkgs,
-    }:
+    { self, nixpkgs }:
     let
       darwinSystem = "aarch64-darwin";
       linuxSystem = builtins.replaceStrings [ "darwin" ] [ "linux" ] darwinSystem;
@@ -28,7 +20,7 @@
           default = image;
 
           image = pkgs.callPackage ./package.nix {
-            inherit linuxSystem nixos-generators nixpkgs;
+            inherit linuxSystem nixpkgs;
             # Optional: override default argument values passed to the derivation.
             # Many can also be accessed through the module.
           };
