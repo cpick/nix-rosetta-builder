@@ -34,6 +34,19 @@
           };
         };
 
+      apps."${darwinSystem}".stop =
+        let
+          pkgs = nixpkgs.legacyPackages."${darwinSystem}";
+          stopScript = pkgs.writeShellScript "stop-rosetta-builder" ''
+            sudo launchctl kill -15 system/org.nixos.rosetta-builderd
+          '';
+        in
+        {
+          type = "app";
+          program = "${stopScript}";
+          description = "Stop the rosetta-builder lima VM";
+        };
+
       devShells."${darwinSystem}".default =
         let
           pkgs = nixpkgs.legacyPackages."${darwinSystem}";
