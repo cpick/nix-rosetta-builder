@@ -84,11 +84,9 @@ nixos-generators.nixosGenerate (
         services = {
           getty = optionalAttrs debugInsecurely { autologinUser = linuxUser; };
 
-          logind = optionalAttrs onDemand {
-            extraConfig = ''
-              IdleAction=poweroff
-              IdleActionSec=${toString onDemandLingerMinutes}minutes
-            '';
+          logind.settings.Login = optionalAttrs onDemand {
+            IdleAction = "poweroff";
+            IdleActionSec = "${toString onDemandLingerMinutes}minutes";
           };
 
           openssh = {
@@ -204,7 +202,8 @@ nixos-generators.nixosGenerate (
           mountTag = "vz-rosetta";
         };
       }
-    ] ++ [ potentiallyInsecureExtraNixosModule ];
+    ]
+    ++ [ potentiallyInsecureExtraNixosModule ];
     system = linuxSystem;
   }
 )
