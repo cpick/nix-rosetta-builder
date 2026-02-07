@@ -61,6 +61,13 @@ flake.nix:
 }
 ```
 
+## Rosetta dependency
+
+`nix-rosetta-builder` depends on macOS having `rosetta` installed:
+```
+softwareupdate --install-rosetta
+```
+
 ## Uninstall
 
 1. Set `nix-rosetta-builder.enable = false` in the nix-darwin configuration and run
